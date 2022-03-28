@@ -12,7 +12,7 @@ namespace TestEntityFramework.Models
             LMeetingWorks = new HashSet<LMeetingWork>();
         }
 
-        public int FMeeting1 { get; set; }
+        public int FMeetingId { get; set; }
         public int FComission { get; set; }
         public DateTime? DateTime { get; set; }
         public string Place { get; set; }

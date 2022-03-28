@@ -10,13 +10,13 @@ namespace TestEntityFramework.Models
         public FComission()
         {
             FMeetings = new HashSet<FMeeting>();
-            LComissionPeople = new HashSet<LComissionPerson>();
+            LComissionPerson = new HashSet<LComissionPerson>();
         }
 
-        public int FComission1 { get; set; }
+        public int FComissionId { get; set; }
         public string Name { get; set; }
 
         public virtual ICollection<FMeeting> FMeetings { get; set; }
-        public virtual ICollection<LComissionPerson> LComissionPeople { get; set; }
+        public virtual ICollection<LComissionPerson> LComissionPerson { get; set; }
     }
 }

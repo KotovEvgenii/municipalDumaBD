@@ -19,8 +19,8 @@ namespace TestEntityFramework.Models
 
         public virtual DbSet<FComission> FComissions { get; set; }
         public virtual DbSet<FMeeting> FMeetings { get; set; }
-        public virtual DbSet<FPerson> FPeople { get; set; }
-        public virtual DbSet<LComissionPerson> LComissionPeople { get; set; }
+        public virtual DbSet<FPerson> FPerson { get; set; }
+        public virtual DbSet<LComissionPerson> LComissionperson { get; set; }
         public virtual DbSet<LMeetingWork> LMeetingWorks { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -38,12 +38,12 @@ namespace TestEntityFramework.Models
 
             modelBuilder.Entity<FComission>(entity =>
             {
-                entity.HasKey(e => e.FComission1)
+                entity.HasKey(e => e.FComissionId)
                     .HasName("pk_f_comission");
 
                 entity.ToTable("f_comission");
 
-                entity.Property(e => e.FComission1).HasColumnName("f_comission");
+                entity.Property(e => e.FComissionId).HasColumnName("f_comission");
 
                 entity.Property(e => e.Name)
                     .IsRequired()
@@ -54,12 +54,12 @@ namespace TestEntityFramework.Models
 
             modelBuilder.Entity<FMeeting>(entity =>
             {
-                entity.HasKey(e => e.FMeeting1)
+                entity.HasKey(e => e.FMeetingId)
                     .HasName("pk_f_meeting");
 
                 entity.ToTable("f_meeting");
 
-                entity.Property(e => e.FMeeting1).HasColumnName("f_meeting");
+                entity.Property(e => e.FMeetingId).HasColumnName("f_meeting");
 
                 entity.Property(e => e.DateTime)
                     .HasColumnType("datetime")
@@ -82,12 +82,12 @@ namespace TestEntityFramework.Models
 
             modelBuilder.Entity<FPerson>(entity =>
             {
-                entity.HasKey(e => e.FPeople)
-                    .HasName("pk_f_people");
+                entity.HasKey(e => e.FPersonId)
+                    .HasName("pk_f_person");
 
-                entity.ToTable("f_people");
+                entity.ToTable("f_person");
 
-                entity.Property(e => e.FPeople).HasColumnName("f_people");
+                entity.Property(e => e.FPersonId).HasColumnName("f_person");
 
                 entity.Property(e => e.Address)
                     .HasMaxLength(255)
@@ -112,12 +112,12 @@ namespace TestEntityFramework.Models
 
             modelBuilder.Entity<LComissionPerson>(entity =>
             {
-                entity.HasKey(e => e.LComissionPeople)
-                    .HasName("pk_l_comission_people");
+                entity.HasKey(e => e.LComissionPersonId)
+                    .HasName("pk_l_comission_person");
 
-                entity.ToTable("l_comission_people");
+                entity.ToTable("l_comission_person");
 
-                entity.Property(e => e.LComissionPeople).HasColumnName("l_comission_people");
+                entity.Property(e => e.LComissionPersonId).HasColumnName("l_comission_person");
 
                 entity.Property(e => e.DateBegin)
                     .HasColumnType("datetime")
@@ -129,7 +129,7 @@ namespace TestEntityFramework.Models
 
                 entity.Property(e => e.FComission).HasColumnName("f_comission");
 
-                entity.Property(e => e.FPeople).HasColumnName("f_people");
+                entity.Property(e => e.FPerson).HasColumnName("f_person");
 
                 entity.Property(e => e.Stat)
                     .HasColumnName("stat")
@@ -140,30 +140,30 @@ namespace TestEntityFramework.Models
                     .HasDefaultValueSql("((0))");
 
                 entity.HasOne(d => d.FComissionNavigation)
-                    .WithMany(p => p.LComissionPeople)
+                    .WithMany(p => p.LComissionPerson)
                     .HasForeignKey(d => d.FComission)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("fk_lcp_f_comission");
 
-                entity.HasOne(d => d.FPeopleNavigation)
-                    .WithMany(p => p.LComissionPeople)
-                    .HasForeignKey(d => d.FPeople)
+                entity.HasOne(d => d.FPersonNavigation)
+                    .WithMany(p => p.LComissionPerson)
+                    .HasForeignKey(d => d.FPerson)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("fk_lcp_f_people");
+                    .HasConstraintName("fk_lcp_f_person");
             });
 
             modelBuilder.Entity<LMeetingWork>(entity =>
             {
-                entity.HasKey(e => e.LMeetingWork1)
+                entity.HasKey(e => e.LMeetingWorkId)
                     .HasName("pk_l_meeting_work");
 
                 entity.ToTable("l_meeting_work");
 
-                entity.Property(e => e.LMeetingWork1).HasColumnName("l_meeting_work");
+                entity.Property(e => e.LMeetingWorkId).HasColumnName("l_meeting_work");
 
                 entity.Property(e => e.FMeeting).HasColumnName("f_meeting");
 
-                entity.Property(e => e.FPeople).HasColumnName("f_people");
+                entity.Property(e => e.FPerson).HasColumnName("f_person");
 
                 entity.Property(e => e.IsAbsent).HasColumnName("isAbsent");
 
@@ -173,11 +173,11 @@ namespace TestEntityFramework.Models
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("fk_l_meet_work_f_meeting");
 
-                entity.HasOne(d => d.FPeopleNavigation)
+                entity.HasOne(d => d.FPersonNavigation)
                     .WithMany(p => p.LMeetingWorks)
-                    .HasForeignKey(d => d.FPeople)
+                    .HasForeignKey(d => d.FPerson)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("fk_l_meet_work_f_people");
+                    .HasConstraintName("fk_l_meet_work_f_person");
             });
 
             OnModelCreatingPartial(modelBuilder);

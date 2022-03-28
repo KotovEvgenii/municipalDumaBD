@@ -8,19 +8,20 @@ namespace TestEntityFramework
 {
     class Program
     {
+        
         static void ShowComission()
         {
             MunicipalDumaContext mdc = new MunicipalDumaContext();
 
             var result = from comis in mdc.FComissions
-                         join l_com_pers in mdc.LComissionPeople on comis.FComission1 equals l_com_pers.FComission
-                         join people in mdc.FPeople on l_com_pers.FPeople equals people.FPeople
+                         join l_com_pers in mdc.LComissionperson on comis.FComissionId equals l_com_pers.FComission
+                         join person in mdc.FPerson on l_com_pers.FPerson equals person.FPersonId
                          select new
                          {
-                             id = comis.FComission1,
+                             id = comis.FComissionId,
                              name = comis.Name,
-                             nameP = people.Name,
-                             surnameP = people.Surname,
+                             nameP = person.Name,
+                             surnameP = person.Surname,
                              stat = l_com_pers.Stat,
                              statMain = l_com_pers.StatMain
                          };
@@ -56,7 +57,8 @@ namespace TestEntityFramework
                 Console.WriteLine($"{x.id.ToString(),2} \t {x.name,30} \t {x.nameP,15} \t {x.surnameP,20} \t {stat,20} \t {statMain}");
             }
         }
-        static void AddPeople(string name_, string surname_, string address_, string phoneNumber_)
+        
+        static void AddPerson(string name_, string surname_, string address_, string phoneNumber_)
         {
             MunicipalDumaContext mdc = new MunicipalDumaContext();
 
@@ -68,7 +70,7 @@ namespace TestEntityFramework
                 PhoneNumber = phoneNumber_
             };
 
-            mdc.FPeople.Add(people);
+            mdc.FPerson.Add(people);
             mdc.SaveChanges();
         }
 
@@ -96,7 +98,7 @@ namespace TestEntityFramework
         /// <param name="dateBegin_"></param> 
         /// <param name="comiss_"></param> 
         /// <param name="f_people_"></param> 
-        static void AddLComissionPeople(int statMain_, string dateBegin_, int comiss_, int f_people_)
+        static void AddLComissionPerson(int statMain_, string dateBegin_, int comiss_, int f_people_)
         {
             MunicipalDumaContext mdc = new MunicipalDumaContext();
 
@@ -105,10 +107,10 @@ namespace TestEntityFramework
                 StatMain = statMain_,
                 DateBegin = Convert.ToDateTime(dateBegin_),
                 FComission = comiss_,
-                FPeople = f_people_
+                FPerson = f_people_
             };
 
-            mdc.LComissionPeople.Add(l_comm_pers);
+            mdc.LComissionperson.Add(l_comm_pers);
 
             mdc.SaveChanges();
         }
@@ -126,10 +128,10 @@ namespace TestEntityFramework
             MunicipalDumaContext mdc = new MunicipalDumaContext();
 
             var query = from lmw in mdc.Set<LMeetingWork>().Where(x => x.IsAbsent == true)
-                        from fm in mdc.Set<FMeeting>().Where(t => t.FMeeting1 == lmw.FMeeting && t.FComission == comiss_ && t.DateTime >= Convert.ToDateTime(dateBegin_) &&
+                        from fm in mdc.Set<FMeeting>().Where(t => t.FMeetingId == lmw.FMeeting && t.FComission == comiss_ && t.DateTime >= Convert.ToDateTime(dateBegin_) &&
                                                             t.DateTime <= Convert.ToDateTime(dateEnd_))
-                        from fc in mdc.Set<FComission>().Where(x => x.FComission1 == fm.FComission)
-                        from fp in mdc.Set<FPerson>().Where(x => x.FPeople == lmw.FPeople)
+                        from fc in mdc.Set<FComission>().Where(x => x.FComissionId == fm.FComission)
+                        from fp in mdc.Set<FPerson>().Where(x => x.FPersonId == lmw.FPerson)
                         select new {fc, lmw, fp, fm };
 
             foreach (var item in query)
@@ -140,7 +142,7 @@ namespace TestEntityFramework
         }
         static void Main(string[] args)
         {
-            //ShowComission();
+            ShowComission();
             //AddPeople("Киану","Ривз", "Матрица","00001118877" );
             //AddComission("Комиссия по вооружению");
             //AddLComissionPeople(1, "27/03/2022", 6, 13);

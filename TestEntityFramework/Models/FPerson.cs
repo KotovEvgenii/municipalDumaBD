@@ -9,17 +9,17 @@ namespace TestEntityFramework.Models
     {
         public FPerson()
         {
-            LComissionPeople = new HashSet<LComissionPerson>();
+            LComissionPerson = new HashSet<LComissionPerson>();
             LMeetingWorks = new HashSet<LMeetingWork>();
         }
 
-        public int FPeople { get; set; }
+        public int FPersonId { get; set; }
         public string Name { get; set; }
         public string Surname { get; set; }
         public string Address { get; set; }
         public string PhoneNumber { get; set; }
 
-        public virtual ICollection<LComissionPerson> LComissionPeople { get; set; }
+        public virtual ICollection<LComissionPerson> LComissionPerson { get; set; }
         public virtual ICollection<LMeetingWork> LMeetingWorks { get; set; }
     }
 }
