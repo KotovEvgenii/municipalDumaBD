@@ -4,14 +4,14 @@ GO
 USE MunicipalDuma
 GO
 
-CREATE TABLE f_people 
+CREATE TABLE f_person 
 (
- f_people		int				IDENTITY NOT NULL,
+ f_person		int				IDENTITY NOT NULL,
  name			varchar(50)		NULL,
  surname		varchar(100)	NULL,
  address		varchar(255)	NULL,
  phone_number	varchar(20)		NULL,
- CONSTRAINT pk_f_people PRIMARY KEY (f_people)
+ CONSTRAINT pk_f_person PRIMARY KEY (f_person)
 )
 GO
 
@@ -35,18 +35,18 @@ CREATE TABLE f_meeting
 )
 GO
 
-CREATE TABLE l_comission_people 
+CREATE TABLE l_comission_person 
 (
- l_comission_people			int				IDENTITY NOT NULL,
+ l_comission_person			int				IDENTITY NOT NULL,
  f_comission				int				NOT NULL,
- f_people					int				NOT NULL,
+ f_person					int				NOT NULL,
  stat						int				default 0,  -- 0 активный участник или 1 - удалён
  stat_main					int				default 0,  -- 1 председатель, 0-обычный
  date_begin					datetime		NULL,
  date_end					datetime		NULL,
- CONSTRAINT pk_l_comission_people PRIMARY KEY (l_comission_people),
+ CONSTRAINT pk_l_comission_person PRIMARY KEY (l_comission_person),
  CONSTRAINT fk_lcp_f_comission FOREIGN KEY (f_comission) REFERENCES f_comission (f_comission),
- CONSTRAINT fk_lcp_f_people FOREIGN KEY (f_people) REFERENCES f_people (f_people)
+ CONSTRAINT fk_lcp_f_person FOREIGN KEY (f_person) REFERENCES f_person (f_person)
 )
 GO
 
@@ -54,11 +54,11 @@ CREATE TABLE l_meeting_work
 (
  l_meeting_work				int				IDENTITY NOT NULL,
  f_meeting					int				NOT NULL,
- f_people					int				NOT NULL,
+ f_person					int				NOT NULL,
  isAbsent					bit				NOT NULL,
  CONSTRAINT pk_l_meeting_work PRIMARY KEY (l_meeting_work),
  CONSTRAINT fk_l_meet_work_f_meeting FOREIGN KEY (f_meeting) REFERENCES f_meeting (f_meeting),
- CONSTRAINT fk_l_meet_work_f_people FOREIGN KEY (f_people) REFERENCES f_people (f_people)
+ CONSTRAINT fk_l_meet_work_f_person FOREIGN KEY (f_person) REFERENCES f_person (f_person)
 )
 GO
 
@@ -71,7 +71,7 @@ VALUES
 ('Комиссия по воде')
 GO
 
-INSERT INTO f_people
+INSERT INTO f_person
 VALUES
 ('Иван', 'Иванов', 'Саратов', '89171112211'),
 ('Петр', 'Петров', 'Саратов', '89171112235'),
@@ -102,7 +102,7 @@ VALUES
 (4, '20210601', 'За столом')
 GO
 
-INSERT INTO l_comission_people
+INSERT INTO l_comission_person
 VALUES
 (1, 1, 0, 1, '20210101', NULL),
 (1, 2, 0, 0, '20210101', NULL),
