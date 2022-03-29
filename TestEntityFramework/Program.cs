@@ -127,27 +127,36 @@ namespace TestEntityFramework
         {
             MunicipalDumaContext mdc = new MunicipalDumaContext();
 
-            var query = from lmw in mdc.Set<LMeetingWork>().Where(x => x.IsAbsent == true)
-                        from fm in mdc.Set<FMeeting>().Where(t => t.FMeetingId == lmw.FMeeting && t.FComission == comiss_ && t.DateTime >= Convert.ToDateTime(dateBegin_) &&
-                                                            t.DateTime <= Convert.ToDateTime(dateEnd_))
-                        from fc in mdc.Set<FComission>().Where(x => x.FComissionId == fm.FComission)
-                        from fp in mdc.Set<FPerson>().Where(x => x.FPersonId == lmw.FPerson)
-                        select new {fc, lmw, fp, fm };
+            //var query = from lmw in mdc.Set<LMeetingWork>().Where(x => x.IsAbsent == true)
+            //            from fm in mdc.Set<FMeeting>().Where(t => t.FMeetingId == lmw.FMeeting && t.FComission == comiss_ && t.DateTime >= Convert.ToDateTime(dateBegin_) &&
+            //                                                t.DateTime <= Convert.ToDateTime(dateEnd_))
+            //            from fc in mdc.Set<FComission>().Where(x => x.FComissionId == fm.FComission)
+            //            from fp in mdc.Set<FPerson>().Where(x => x.FPersonId == lmw.FPerson)
+            //            select new {fc, lmw, fp, fm };
+
+            var query = mdc.LMeetingWorks.Where(x => x.IsAbsent == true)
+                        .Include(x => x.FPersonNavigation)
+                        .Include(x => x.FMeetingNavigation)
+                            .ThenInclude(y => y.FComissionNavigation)
+                        .GroupBy(x => x.FPersonNavigation);
 
             foreach (var item in query)
             {
-                Console.WriteLine($"Название комиссии: {item.fc.Name} \t Дата Заседания:{item.fm.DateTime} \t Отсутствовал: {item.fp.Name}  {item.fp.Surname}  ");
+                //Console.WriteLine($"Название комиссии: {item.FirstOrDefault().FMeetingNavigation.FComissionNavigation.Name} \t " +
+                //                    $"Дата Заседания:{item.FirstOrDefault().FMeetingNavigation.DateTime} \t " +
+                //                    $"Отсутствовал: {item.FirstOrDefault().FPersonNavigation.Name}  {item.FirstOrDefault().FPersonNavigation.Surname} \t" +
+                //                    $"Количество пропусков: {item.FirstOrDefault().IsAbsent} ");
             }
             
         }
         static void Main(string[] args)
         {
-            ShowComission();
+            //ShowComission();
             //AddPeople("Киану","Ривз", "Матрица","00001118877" );
             //AddComission("Комиссия по вооружению");
             //AddLComissionPeople(1, "27/03/2022", 6, 13);
             //AddLComissionPeople(0, "27/03/2022", 6, 1);
-            //ShowHowIsAbsent("01/01/2021", "01/06/2021", 1);
+            ShowHowIsAbsent("01/01/2021", "01/06/2021", 1);
         }
     }
 }
