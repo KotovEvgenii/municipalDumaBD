@@ -136,13 +136,18 @@ namespace TestEntityFramework
 
             var query = mdc.LMeetingWorks.Where(x => x.IsAbsent == true)
                         .Include(x => x.FPersonNavigation)
-                        .Include(x => x.FMeetingNavigation)
-                            .ThenInclude(y => y.FComissionNavigation)
-                        .GroupBy(x => x.FPersonNavigation);
+                        .Include(x => x.FMeetingNavigation).Where(t => t.FMeetingNavigation.FComission == comiss_ && t.FMeetingNavigation.DateTime >= Convert.ToDateTime(dateBegin_) &&
+                                                            t.FMeetingNavigation.DateTime <= Convert.ToDateTime(dateEnd_))
+                        .Include(t => t.FMeetingNavigation.FComissionNavigation);
+                        //.GroupBy(x => x.FPersonNavigation);
 
             foreach (var item in query)
             {
-                //Console.WriteLine($"Название комиссии: {item.FirstOrDefault().FMeetingNavigation.FComissionNavigation.Name} \t " +
+                Console.WriteLine(//$"Название комиссии: {item.FMeetingNavigation.FComissionNavigation.Name} \t " +
+                                    $"Дата Заседания:{item.FMeetingNavigation.DateTime} \t " +
+                                    $"Отсутствовал: {item.FPersonNavigation.Name}  {item.FPersonNavigation.Surname} \t" +
+                                    $"Количество пропусков: {item.IsAbsent} ");
+                //Console.WriteLine(//$"Название комиссии: {item.FirstOrDefault().FMeetingNavigation.FComissionNavigation.Name} \t " +
                 //                    $"Дата Заседания:{item.FirstOrDefault().FMeetingNavigation.DateTime} \t " +
                 //                    $"Отсутствовал: {item.FirstOrDefault().FPersonNavigation.Name}  {item.FirstOrDefault().FPersonNavigation.Surname} \t" +
                 //                    $"Количество пропусков: {item.FirstOrDefault().IsAbsent} ");
