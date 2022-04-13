@@ -1,0 +1,65 @@
+﻿@model IEnumerable<TestEntityFramework.Models.LComissionPerson>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Stat)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.StatMain)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DateBegin)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DateEnd)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FComissionNavigation)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FPersonNavigation)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Stat)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StatMain)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateBegin)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateEnd)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FComissionNavigation.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FPersonNavigation.Name)  @Html.DisplayFor(modelItem => item.FPersonNavigation.Surname)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.LComissionPersonId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.LComissionPersonId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.LComissionPersonId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

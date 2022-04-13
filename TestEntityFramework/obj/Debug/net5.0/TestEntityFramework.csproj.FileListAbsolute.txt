@@ -63,3 +63,5 @@ C:\Users\Evgenii\source\repos\TestEntityFramework\TestEntityFramework\obj\Debug\
 C:\Users\Evgenii\source\repos\TestEntityFramework\TestEntityFramework\obj\Debug\net5.0\ref\TestEntityFramework.dll
 C:\Users\Evgenii\source\repos\TestEntityFramework\TestEntityFramework\obj\Debug\net5.0\TestEntityFramework.pdb
 C:\Users\Evgenii\source\repos\TestEntityFramework\TestEntityFramework\obj\Debug\net5.0\TestEntityFramework.genruntimeconfig.cache
+C:\Users\Evgenii\source\repos\TestEntityFramework\TestEntityFramework\bin\Debug\net5.0\Data.dll
+C:\Users\Evgenii\source\repos\TestEntityFramework\TestEntityFramework\bin\Debug\net5.0\Data.pdb
