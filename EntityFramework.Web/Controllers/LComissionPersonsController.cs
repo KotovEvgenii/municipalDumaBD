@@ -49,7 +49,7 @@ namespace EntityFramework.Web.Controllers
         public IActionResult Create()
         {
             ViewData["FComission"] = new SelectList(_context.FComissions, "FComissionId", "Name");
-            ViewData["FPerson"] = new SelectList(_context.FPerson, "FPersonId", "FPersonId");
+            ViewData["FPerson"] = new SelectList(_context.FPerson, "FPersonId", "Surname"); //
             return View();
         }
 
@@ -67,7 +67,7 @@ namespace EntityFramework.Web.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["FComission"] = new SelectList(_context.FComissions, "FComissionId", "Name", lComissionPerson.FComission);
-            ViewData["FPerson"] = new SelectList(_context.FPerson, "FPersonId", "FPersonId", lComissionPerson.FPerson);
+            ViewData["FPerson"] = new SelectList(_context.FPerson, "FPersonId", "Surname", lComissionPerson.FPerson);
             return View(lComissionPerson);
         }
 
@@ -85,7 +85,7 @@ namespace EntityFramework.Web.Controllers
                 return NotFound();
             }
             ViewData["FComission"] = new SelectList(_context.FComissions, "FComissionId", "Name", lComissionPerson.FComission);
-            ViewData["FPerson"] = new SelectList(_context.FPerson, "FPersonId", "FPersonId", lComissionPerson.FPerson);
+            ViewData["FPerson"] = new SelectList(_context.FPerson, "FPersonId", "Surname", lComissionPerson.FPerson);
             return View(lComissionPerson);
         }
 
@@ -122,7 +122,7 @@ namespace EntityFramework.Web.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["FComission"] = new SelectList(_context.FComissions, "FComissionId", "Name", lComissionPerson.FComission);
-            ViewData["FPerson"] = new SelectList(_context.FPerson, "FPersonId", "FPersonId", lComissionPerson.FPerson);
+            ViewData["FPerson"] = new SelectList(_context.FPerson, "FPersonId", "Surname", lComissionPerson.FPerson);
             return View(lComissionPerson);
         }
 
