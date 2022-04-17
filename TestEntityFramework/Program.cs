@@ -14,7 +14,7 @@ namespace TestEntityFramework
             MunicipalDumaContext mdc = new MunicipalDumaContext();
 
             var result = from comis in mdc.FComissions
-                         join l_com_pers in mdc.LComissionperson on comis.FComissionId equals l_com_pers.FComission
+                         join l_com_pers in mdc.LComissionPerson on comis.FComissionId equals l_com_pers.FComission
                          join person in mdc.FPerson on l_com_pers.FPerson equals person.FPersonId
                          select new
                          {
@@ -110,7 +110,7 @@ namespace TestEntityFramework
                 FPerson = f_people_
             };
 
-            mdc.LComissionperson.Add(l_comm_pers);
+            mdc.LComissionPerson.Add(l_comm_pers);
 
             mdc.SaveChanges();
         }
@@ -154,6 +154,20 @@ namespace TestEntityFramework
             }
             
         }
+
+        static void ShowCommPerson(int id)
+        {
+            MunicipalDumaContext mdc = new MunicipalDumaContext();
+
+            var query = mdc.LComissionPerson
+                        .Include(l => l.FPersonNavigation).Where(l => l.FPersonNavigation.FPersonId == id)
+                        .Include(l => l.FComissionNavigation);
+
+            foreach (var item in query)
+            {
+                Console.WriteLine($"{item.FPersonNavigation.Name}_{item.FPersonNavigation.Surname} | {item.FComissionNavigation.Name}");
+            }
+        }
         static void Main(string[] args)
         {
             //ShowComission();
@@ -161,7 +175,8 @@ namespace TestEntityFramework
             //AddComission("Комиссия по вооружению");
             //AddLComissionPeople(1, "27/03/2022", 6, 13);
             //AddLComissionPeople(0, "27/03/2022", 6, 1);
-            ShowHowIsAbsent("01/01/2021", "01/06/2021", 1);
+            //ShowHowIsAbsent("01/01/2021", "01/06/2021", 1);
+            ShowCommPerson(2);
         }
     }
 }

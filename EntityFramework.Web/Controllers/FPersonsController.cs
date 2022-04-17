@@ -33,13 +33,32 @@ namespace EntityFramework.Web.Controllers
             }
 
             var fPerson = await _context.FPerson
+                .Include(l => l.LComissionPerson)
                 .FirstOrDefaultAsync(m => m.FPersonId == id);
+
+            var query = _context.LComissionPerson
+                       .Include(l => l.FPersonNavigation).Where(l => l.FPersonNavigation.FPersonId == id)
+                       .Include(l => l.FComissionNavigation).ToList();
+
             if (fPerson == null)
             {
                 return NotFound();
             }
 
-            return View(fPerson);
+            return View(query);
+
+        }
+
+        public ActionResult<IEnumerable<LComissionPerson>> GetInfoPers()
+        {
+            int id = 2;
+             var query = _context.LComissionPerson
+                       .Include(l => l.FPersonNavigation).Where(l => l.FPersonNavigation.FPersonId == id)
+                       .Include(l => l.FComissionNavigation).ToList();
+           
+
+            return View(query);
+
         }
 
         // GET: FPersons/Create

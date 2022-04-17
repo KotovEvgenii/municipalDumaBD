@@ -171,3 +171,4 @@ C:\Users\Evgenii\source\repos\TestEntityFramework\EntityFramework.Web\obj\Debug\
 C:\Users\Evgenii\source\repos\TestEntityFramework\EntityFramework.Web\obj\Debug\net5.0\Razor\Views\LMeetingWorks\Details.cshtml.g.cs
 C:\Users\Evgenii\source\repos\TestEntityFramework\EntityFramework.Web\obj\Debug\net5.0\Razor\Views\LMeetingWorks\Edit.cshtml.g.cs
 C:\Users\Evgenii\source\repos\TestEntityFramework\EntityFramework.Web\obj\Debug\net5.0\Razor\Views\LMeetingWorks\Index.cshtml.g.cs
+C:\Users\Evgenii\source\repos\TestEntityFramework\EntityFramework.Web\obj\Debug\net5.0\Razor\Views\FPersons\GetInfoPers.cshtml.g.cs

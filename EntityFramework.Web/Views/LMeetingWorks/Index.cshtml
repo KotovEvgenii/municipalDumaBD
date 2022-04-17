@@ -13,13 +13,15 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.IsAbsent)
+                <!--Html.DisplayNameFor(model => model.IsAbsent)-->
+                @Html.DisplayName("Отсутстовал/Присутствовал")
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.FMeetingNavigation)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.FPersonNavigation)
+                <!--@Html.DisplayNameFor(model => model.FPersonNavigation)-->
+                @Html.DisplayName("ФИО члена комиссии")
             </th>
             <th></th>
         </tr>
@@ -34,7 +36,7 @@
                 @Html.DisplayFor(modelItem => item.FMeetingNavigation.FMeetingId)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.FPersonNavigation.FPersonId)
+                @Html.DisplayFor(modelItem => item.FPersonNavigation.Name) @Html.DisplayFor(modelItem => item.FPersonNavigation.Surname)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.LMeetingWorkId">Edit</a> |

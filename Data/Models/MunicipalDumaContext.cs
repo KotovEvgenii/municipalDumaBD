@@ -20,7 +20,7 @@ namespace TestEntityFramework.Models
         public virtual DbSet<FComission> FComissions { get; set; }
         public virtual DbSet<FMeeting> FMeetings { get; set; }
         public virtual DbSet<FPerson> FPerson { get; set; }
-        public virtual DbSet<LComissionPerson> LComissionperson { get; set; }
+        public virtual DbSet<LComissionPerson> LComissionPerson { get; set; }
         public virtual DbSet<LMeetingWork> LMeetingWorks { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

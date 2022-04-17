@@ -21,7 +21,7 @@ namespace EntityFramework.Web.Controllers
         // GET: LComissionPersons
         public async Task<IActionResult> Index()
         {
-            var municipalDumaContext = _context.LComissionperson.Include(l => l.FComissionNavigation).Include(l => l.FPersonNavigation);
+            var municipalDumaContext = _context.LComissionPerson.Include(l => l.FComissionNavigation).Include(l => l.FPersonNavigation);
             return View(await municipalDumaContext.ToListAsync());
         }
 
@@ -33,7 +33,7 @@ namespace EntityFramework.Web.Controllers
                 return NotFound();
             }
 
-            var lComissionPerson = await _context.LComissionperson
+            var lComissionPerson = await _context.LComissionPerson
                 .Include(l => l.FComissionNavigation)
                 .Include(l => l.FPersonNavigation)
                 .FirstOrDefaultAsync(m => m.LComissionPersonId == id);
@@ -79,7 +79,7 @@ namespace EntityFramework.Web.Controllers
                 return NotFound();
             }
 
-            var lComissionPerson = await _context.LComissionperson.FindAsync(id);
+            var lComissionPerson = await _context.LComissionPerson.FindAsync(id);
             if (lComissionPerson == null)
             {
                 return NotFound();
@@ -134,7 +134,7 @@ namespace EntityFramework.Web.Controllers
                 return NotFound();
             }
 
-            var lComissionPerson = await _context.LComissionperson
+            var lComissionPerson = await _context.LComissionPerson
                 .Include(l => l.FComissionNavigation)
                 .Include(l => l.FPersonNavigation)
                 .FirstOrDefaultAsync(m => m.LComissionPersonId == id);
@@ -151,15 +151,15 @@ namespace EntityFramework.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var lComissionPerson = await _context.LComissionperson.FindAsync(id);
-            _context.LComissionperson.Remove(lComissionPerson);
+            var lComissionPerson = await _context.LComissionPerson.FindAsync(id);
+            _context.LComissionPerson.Remove(lComissionPerson);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool LComissionPersonExists(int id)
         {
-            return _context.LComissionperson.Any(e => e.LComissionPersonId == id);
+            return _context.LComissionPerson.Any(e => e.LComissionPersonId == id);
         }
     }
 }
