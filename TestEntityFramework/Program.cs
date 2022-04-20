@@ -123,7 +123,7 @@ namespace TestEntityFramework
         /// <param name="dateBegin_"></param>
         /// <param name="dateEnd_"></param>
         /// <param name="comiss_"></param>
-        static void ShowHowIsAbsent(string dateBegin_, string dateEnd_, int comiss_)
+        static void ShowWhoIsAbsent(string dateBegin_, string dateEnd_, int comiss_)
         {
             MunicipalDumaContext mdc = new MunicipalDumaContext();
 
@@ -168,6 +168,34 @@ namespace TestEntityFramework
                 Console.WriteLine($"{item.FPersonNavigation.Name}_{item.FPersonNavigation.Surname} | {item.FComissionNavigation.Name}");
             }
         }
+
+        static void ShowComm(int id)
+        {
+            MunicipalDumaContext mdc = new MunicipalDumaContext();
+
+            var result = from comis in mdc.FComissions
+                         join l_com_pers in mdc.LComissionPerson on comis.FComissionId equals l_com_pers.FComission
+                         join person in mdc.FPerson on l_com_pers.FPerson equals person.FPersonId
+                         join l_meet_work in mdc.LMeetingWorks on person.FPersonId equals l_meet_work.FPerson
+                         join meeting in mdc.FMeetings on l_meet_work.FMeeting equals meeting.FMeetingId
+                         where  
+                            l_meet_work.IsAbsent == false &&
+                            person.FPersonId == id
+                         select new
+                         {
+                             id = comis.FComissionId,
+                             name = comis.Name,
+                             nameP = person.Name,
+                             surnameP = person.Surname,
+                             place = meeting.Place,
+                             dt_comis = meeting.DateTime
+                         };
+
+            foreach (var item in result)
+            {
+                Console.WriteLine($"{item.id} \t {item.name} \t{item.nameP} \t{item.surnameP} \t{item.place} \t{item.dt_comis}");
+            }
+        }
         static void Main(string[] args)
         {
             //ShowComission();
@@ -175,8 +203,9 @@ namespace TestEntityFramework
             //AddComission("Комиссия по вооружению");
             //AddLComissionPeople(1, "27/03/2022", 6, 13);
             //AddLComissionPeople(0, "27/03/2022", 6, 1);
-            //ShowHowIsAbsent("01/01/2021", "01/06/2021", 1);
-            ShowCommPerson(2);
+            //ShowWhoIsAbsent("01/01/2021", "01/06/2021", 1);
+            //ShowCommPerson(2);
+            ShowComm(5);
         }
     }
 }
